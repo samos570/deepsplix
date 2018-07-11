@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
 import base64
+import random
 
 browser = webdriver.Firefox()
 url = "http://splix.io"
@@ -25,7 +26,11 @@ def gameStart(browser):
     # choose a name
     time.sleep(1)
     playerName = browser.find_element_by_id("nameInput")
-    playerName.send_keys("potato")
+    myname = "potato"
+    while len(myname) > 0:
+        playerName.send_keys(myname[0])
+        time.sleep(random.randint(1,4)/8)
+        myname = myname[1:]
 
     time.sleep(1)
     submitButton = browser.find_element_by_id("joinButton")
@@ -62,7 +67,7 @@ def playGame(browser):
     right(game)
     time.sleep(0.2)
     while True:
-        for n in range(15):
+        for n in range(30):
             up(game)
             time.sleep(0.4)
             right(game)
@@ -71,7 +76,7 @@ def playGame(browser):
             time.sleep(0.5)
             left(game)
             time.sleep(0.4)
-        for n in range(15):
+        for n in range(30):
             up(game)
             time.sleep(0.4)
             right(game)
@@ -80,7 +85,7 @@ def playGame(browser):
             time.sleep(0.4)
             left(game)
             time.sleep(0.5)
-        for n in range(15):
+        for n in range(30):
             up(game)
             time.sleep(0.5)
             right(game)
@@ -89,7 +94,7 @@ def playGame(browser):
             time.sleep(0.4)
             left(game)
             time.sleep(0.4)
-        for n in range(15):
+        for n in range(30):
             up(game)
             time.sleep(0.4)
             right(game)
