@@ -8,7 +8,7 @@ browser = webdriver.Firefox()
 url = "http://splix.io"
 
 # log in
-def gameStart(browser):
+def gameStart(browser,played):
 
     # set options
     time.sleep(1)
@@ -23,13 +23,17 @@ def gameStart(browser):
         quality = browser.find_element_by_id("qualityText")
 
     # choose a name
-    time.sleep(1)
+    time.sleep(5)
     playerName = browser.find_element_by_id("nameInput")
-    playerName.send_keys("potato")
+    if played == 0:
+        playerName.send_keys("potato")
 
     time.sleep(1)
     submitButton = browser.find_element_by_id("joinButton")
     submitButton.click()
+
+    print("Game on!")
+    return browser
 
 # screen grab
 def screenGrab(browser):
@@ -43,66 +47,85 @@ def screenGrab(browser):
 # moves
 def up(game):
     game.send_keys(Keys.ARROW_UP)
+    print("Going up!")
 
 def down(game):
     game.send_keys(Keys.ARROW_DOWN)
+    print("Going down!")
 
 def left(game):
     game.send_keys(Keys.ARROW_LEFT)
+    print("Going left!")
 
 def right(game):
     game.send_keys(Keys.ARROW_RIGHT)
+    print("Going right!")
 
 
 # strategy
 def playGame(browser):
     game=browser.find_element_by_tag_name('body')
-    time.sleep(0.2)
     up(game)
     right(game)
     time.sleep(0.2)
-    while True:
+    canvas=browser.find_element_by_id("mainCanvas")
+    while canvas.is_displayed():
         for n in range(15):
-            up(game)
-            time.sleep(0.4)
-            right(game)
-            time.sleep(0.4)
-            down(game)
-            time.sleep(0.5)
-            left(game)
-            time.sleep(0.4)
+            canvas=browser.find_element_by_id("mainCanvas")
+            if canvas.is_displayed():
+                up(game)
+                time.sleep(0.4)
+                right(game)
+                time.sleep(0.4)
+                down(game)
+                time.sleep(0.5)
+                left(game)
+                time.sleep(0.4)
         for n in range(15):
-            up(game)
-            time.sleep(0.4)
-            right(game)
-            time.sleep(0.4)
-            down(game)
-            time.sleep(0.4)
-            left(game)
-            time.sleep(0.5)
+            canvas=browser.find_element_by_id("mainCanvas")
+            if canvas.is_displayed():
+                up(game)
+                time.sleep(0.4)
+                right(game)
+                time.sleep(0.4)
+                down(game)
+                time.sleep(0.4)
+                left(game)
+                time.sleep(0.5)
         for n in range(15):
-            up(game)
-            time.sleep(0.5)
-            right(game)
-            time.sleep(0.4)
-            down(game)
-            time.sleep(0.4)
-            left(game)
-            time.sleep(0.4)
+            canvas=browser.find_element_by_id("mainCanvas")
+            if canvas.is_displayed():
+                up(game)
+                time.sleep(0.5)
+                right(game)
+                time.sleep(0.4)
+                down(game)
+                time.sleep(0.4)
+                left(game)
+                time.sleep(0.4)
         for n in range(15):
-            up(game)
-            time.sleep(0.4)
-            right(game)
-            time.sleep(0.5)
-            down(game)
-            time.sleep(0.4)
-            left(game)
-            time.sleep(0.4)
+            canvas=browser.find_element_by_id("mainCanvas")
+            if canvas.is_displayed():
+                up(game)
+                time.sleep(0.4)
+                right(game)
+                time.sleep(0.5)
+                down(game)
+                time.sleep(0.4)
+                left(game)
+                time.sleep(0.4)
+        canvas=browser.find_element_by_id("mainCanvas")
+    print("Game over")
+    return browser
 
 # main
-browser.get(url)
-gameStart(browser)
-playGame(browser)
+played = 0
+while True:
+    browser.get(url)
+    browser = gameStart(browser,played)
+    browser = playGame(browser)
+    time.sleep(5)
+    played = played+1
 
 
 
