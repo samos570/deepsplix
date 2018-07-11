@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from datetime import datetime
 import base64
+import random
 
 browser = webdriver.Firefox()
 url = "http://splix.io"
@@ -26,7 +27,11 @@ def gameStart(browser,played):
     time.sleep(5)
     playerName = browser.find_element_by_id("nameInput")
     if played == 0:
-        playerName.send_keys("potato")
+        myname = "potato"
+        while len(myname) > 0:
+            playerName.send_keys(myname[0])
+            time.sleep(random.randint(1,4)/8)
+            myname = myname[1:]
 
     time.sleep(1)
     submitButton = browser.find_element_by_id("joinButton")
