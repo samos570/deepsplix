@@ -49,6 +49,14 @@ def screenGrab(browser):
     with open(r"canvas"+sttime+".png", 'wb') as f:
         f.write(canvas_png)
 
+def currentScore(browser):
+    try:
+        myScore = browser.find_element_by_id("score")
+        return int(myScore.text)
+    except:
+        return 0
+
+
 # moves
 def up(game):
     game.send_keys(Keys.ARROW_UP)
@@ -75,18 +83,8 @@ def playGame(browser):
     time.sleep(0.2)
     canvas=browser.find_element_by_id("mainCanvas")
     while canvas.is_displayed():
-        for n in range(15):
-            canvas=browser.find_element_by_id("mainCanvas")
-            if canvas.is_displayed():
-                up(game)
-                time.sleep(0.4)
-                right(game)
-                time.sleep(0.4)
-                down(game)
-                time.sleep(0.5)
-                left(game)
-                time.sleep(0.4)
-        for n in range(15):
+        extra = random.randint(1,5)
+        for n in range(16+extra):
             canvas=browser.find_element_by_id("mainCanvas")
             if canvas.is_displayed():
                 up(game)
@@ -97,7 +95,35 @@ def playGame(browser):
                 time.sleep(0.4)
                 left(game)
                 time.sleep(0.5)
-        for n in range(15):
+                print("Current Score: "+str(currentScore(browser)))
+        extra = random.randint(1,5)
+        for n in range(16+extra):
+            canvas=browser.find_element_by_id("mainCanvas")
+            if canvas.is_displayed():
+                up(game)
+                time.sleep(0.4)
+                right(game)
+                time.sleep(0.4)
+                down(game)
+                time.sleep(0.5)
+                left(game)
+                time.sleep(0.4)
+                print("Current Score: "+str(currentScore(browser)))
+        extra = random.randint(1,5)
+        for n in range(16+extra):
+            canvas=browser.find_element_by_id("mainCanvas")
+            if canvas.is_displayed():
+                up(game)
+                time.sleep(0.4)
+                right(game)
+                time.sleep(0.6)
+                down(game)
+                time.sleep(0.4)
+                left(game)
+                time.sleep(0.4)
+                print("Current Score: "+str(currentScore(browser)))
+        extra = random.randint(1,5)
+        for n in range(16+extra):
             canvas=browser.find_element_by_id("mainCanvas")
             if canvas.is_displayed():
                 up(game)
@@ -108,17 +134,7 @@ def playGame(browser):
                 time.sleep(0.4)
                 left(game)
                 time.sleep(0.4)
-        for n in range(15):
-            canvas=browser.find_element_by_id("mainCanvas")
-            if canvas.is_displayed():
-                up(game)
-                time.sleep(0.4)
-                right(game)
-                time.sleep(0.5)
-                down(game)
-                time.sleep(0.4)
-                left(game)
-                time.sleep(0.4)
+                print("Current Score: "+str(currentScore(browser)))
         canvas=browser.find_element_by_id("mainCanvas")
     print("Game over")
     return browser
