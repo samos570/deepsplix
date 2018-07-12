@@ -1,9 +1,18 @@
 from selenium import webdriver  
 from selenium.webdriver.common.keys import Keys
 import time
-from datetime import datetime
 import base64
 import random
+import matplotlib.pyplot as plt
+import numpy as npb
+from PIL import Image
+from IPython import display
+import seaborn
+from keras.models import model_from_json
+from keras.models import Sequential
+from keras.layers.core import Dense
+from keras.optimizers import sgd
+from experience import ExperienceReplay
 
 browser = webdriver.Firefox()
 url = "http://splix.io"
